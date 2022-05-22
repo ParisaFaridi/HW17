@@ -1,9 +1,12 @@
 package com.example.homework17.domain
 
 
+import com.example.homework17.data.datasources.RemoteDataSource
 import com.example.homework17.network.ApiService
+import com.example.homework17.ui.MovieViewModel
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -29,4 +32,10 @@ val appModule = module {
         val apiService = retrofit.create(ApiService::class.java)
         apiService
     }
+    single {
+        val remoteDataSource = RemoteDataSource(get())
+        remoteDataSource
+    }
+
+    viewModel { MovieViewModel(get()) }
 }
