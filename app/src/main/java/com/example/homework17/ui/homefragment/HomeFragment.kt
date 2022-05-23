@@ -35,5 +35,6 @@ class HomeFragment : Fragment() {
             binding.recyclerView.adapter = adapter
             adapter.submitList(it)
         }
+        activity?.title = "Movie App"
     }
 }
