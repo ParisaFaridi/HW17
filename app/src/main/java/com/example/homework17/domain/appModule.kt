@@ -3,7 +3,7 @@ package com.example.homework17.domain
 
 import com.example.homework17.data.datasources.RemoteDataSource
 import com.example.homework17.network.ApiService
-import com.example.homework17.ui.MovieViewModel
+import com.example.homework17.ui.homefragment.HomeViewModel
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -37,5 +37,5 @@ val appModule = module {
         remoteDataSource
     }
 
-    viewModel { MovieViewModel(get()) }
+    viewModel { HomeViewModel(get()) }
 }
