@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.homework17.data.model.Movie
 import com.example.homework17.databinding.MovieItemBinding
-import com.example.homework17.network.poster_path
+import com.example.homework17.network.POSTER_PATH
 
 class MovieAdapter:
     ListAdapter<Movie, MovieAdapter.ItemHolder>(FormulaDiffCallBack) {
@@ -37,7 +37,7 @@ class MovieAdapter:
     }
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         holder.binding.movie = getItem(position)
-        Glide.with(holder.binding.imageView.context).load(poster_path + getItem(position).poster_path)
+        Glide.with(holder.binding.imageView.context).load(POSTER_PATH + getItem(position).poster_path)
             .into(holder.binding.imageView)
     }
 }
