@@ -11,7 +11,9 @@ import com.example.homework17.data.model.Movie
 import com.example.homework17.databinding.MovieItemBinding
 import com.example.homework17.network.POSTER_PATH
 
-class MovieAdapter:
+typealias ClickHandler = (Movie) -> Unit
+
+class MovieAdapter(private val clickHandler: ClickHandler):
     ListAdapter<Movie, MovieAdapter.ItemHolder>(FormulaDiffCallBack) {
 
     object FormulaDiffCallBack: DiffUtil.ItemCallback<Movie>() {
@@ -39,5 +41,8 @@ class MovieAdapter:
         holder.binding.movie = getItem(position)
         Glide.with(holder.binding.imageView.context).load(POSTER_PATH + getItem(position).poster_path)
             .into(holder.binding.imageView)
+        holder.binding.imageView.setOnClickListener {
+            clickHandler.invoke(getItem(position))
+        }
     }
 }
