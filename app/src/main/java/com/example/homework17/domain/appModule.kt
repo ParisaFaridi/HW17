@@ -3,6 +3,7 @@ package com.example.homework17.domain
 
 import com.example.homework17.data.datasources.RemoteDataSource
 import com.example.homework17.network.ApiService
+import com.example.homework17.ui.detailfragment.DetailViewModel
 import com.example.homework17.ui.homefragment.HomeViewModel
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -38,4 +39,5 @@ val appModule = module {
     }
 
     viewModel { HomeViewModel(get()) }
+    viewModel { DetailViewModel(get()) }
 }
