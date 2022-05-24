@@ -3,6 +3,7 @@ package com.example.homework17.network
 import com.example.homework17.data.model.Detail
 import com.example.homework17.data.model.MovieList
 import com.example.homework17.data.model.UpComings
+import com.example.homework17.data.model.Videos
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -29,5 +30,11 @@ interface ApiService {
     suspend fun getUpComings(
         @Query("api_key")apiKey:String = API_KEY
     ): UpComings
+
+    @GET("movie/{movie_id}/videos")
+    suspend fun getTrailer(
+        @Path(value = "movie_id") movieId: Int,
+        @Query("api_key")apiKey:String = API_KEY
+    ):Videos
 
 }
