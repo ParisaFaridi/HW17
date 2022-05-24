@@ -2,6 +2,7 @@ package com.example.homework17.network
 
 import com.example.homework17.data.model.Detail
 import com.example.homework17.data.model.MovieList
+import com.example.homework17.data.model.UpComings
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -23,5 +24,10 @@ interface ApiService {
         @Query("api_key") apiKey :String = API_KEY
 
     ): Detail
+
+    @GET("movie/upcoming")
+    suspend fun getUpComings(
+        @Query("api_key")apiKey:String = API_KEY
+    ): UpComings
 
 }

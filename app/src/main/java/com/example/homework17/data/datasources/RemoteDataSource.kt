@@ -13,4 +13,7 @@ class RemoteDataSource(private val apiService: ApiService) {
     suspend fun getMovieDetail(movieId:Int): Detail {
         return apiService.getMovieDetail(movieId = movieId)
     }
+    suspend fun getUpComings():List<Movie>{
+        return apiService.getUpComings().results
+    }
 }
