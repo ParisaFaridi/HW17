@@ -7,14 +7,13 @@ import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.example.homework17.databinding.FragmentTrailerBinding
-import com.example.homework17.ui.detailfragment.DetailViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TrailerFragment : Fragment() {
 
     private lateinit var binding: FragmentTrailerBinding
     private val args: TrailerFragmentArgs by navArgs()
-    private val detailViewModel: DetailViewModel by viewModel()
+    private val trailerViewModel: TrailerViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,8 +26,8 @@ class TrailerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        detailViewModel.getTrailer(args.id)
-        detailViewModel.trailer.observe(viewLifecycleOwner) {
+        trailerViewModel.getTrailer(args.id)
+        trailerViewModel.trailer.observe(viewLifecycleOwner) {
             binding.webView.apply {
                 webViewClient = WebViewClient()
                 loadUrl(it)
