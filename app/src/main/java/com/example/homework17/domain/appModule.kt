@@ -5,6 +5,7 @@ import com.example.homework17.data.datasources.RemoteDataSource
 import com.example.homework17.network.ApiService
 import com.example.homework17.ui.detailfragment.DetailViewModel
 import com.example.homework17.ui.homefragment.HomeViewModel
+import com.example.homework17.ui.upcomingfragment.UpComingViewModel
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -40,4 +41,5 @@ val appModule = module {
 
     viewModel { HomeViewModel(get()) }
     viewModel { DetailViewModel(get()) }
+    viewModel { UpComingViewModel(get()) }
 }
