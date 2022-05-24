@@ -1,13 +1,13 @@
 package com.example.homework17.ui.homefragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.homework17.MovieAdapter
+import com.example.homework17.R
 import com.example.homework17.databinding.FragmentHomeBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -21,6 +21,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        setHasOptionsMenu(true)
         binding =FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -36,5 +37,19 @@ class HomeFragment : Fragment() {
             adapter.submitList(it)
         }
         activity?.title = "Movie App"
+    }
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.upcoming_menu,menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+            R.id.upcoming_item -> {
+                findNavController().navigate(R.id.action_homeFragment_to_upcomingFragment)
+                return true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
