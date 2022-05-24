@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/trailerFragment"
-        android:name="com.example.homework17.TrailerFragment"
+        android:name="com.example.homework17.ui.trailerfragment.TrailerFragment"
         android:label="fragment_trailer"
         tools:layout="@layout/fragment_trailer" >
         <argument
