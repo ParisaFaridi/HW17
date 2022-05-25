@@ -1,6 +1,6 @@
 package com.example.homework17.data.model
 
 data class MovieList(
-    val page: Long,
+    val page: Int,
     val results: List<Movie>,
 )

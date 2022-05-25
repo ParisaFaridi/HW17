@@ -21,12 +21,12 @@ interface ApiService {
         @Path(value = "movie_id") movieId: Int,
         @Query("api_key") apiKey :String = API_KEY
 
-    ): Detail
+    ): Movie
 
     @GET("movie/upcoming")
     suspend fun getUpComings(
         @Query("api_key")apiKey:String = API_KEY
-    ): UpComings
+    ): MovieList
 
     @GET("movie/{movie_id}/videos")
     suspend fun getTrailer(
@@ -38,6 +38,6 @@ interface ApiService {
     suspend fun search(
         @Query("query")query:String,
         @Query("api_key")apiKey:String = API_KEY
-    ):SearchResult
+    ):MovieList
 
 }
