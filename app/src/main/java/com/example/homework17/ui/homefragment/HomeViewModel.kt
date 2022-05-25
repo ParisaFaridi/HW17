@@ -3,11 +3,12 @@ package com.example.homework17.ui.homefragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.homework17.data.Repository
 import com.example.homework17.data.datasources.RemoteDataSource
 import com.example.homework17.data.model.Movie
 import kotlinx.coroutines.launch
 
-class HomeViewModel(private val remoteDataSource: RemoteDataSource) : ViewModel() {
+class HomeViewModel(private val repository: Repository) : ViewModel() {
 
     private val status = MutableLiveData<ApiStatus>()
     val movies = MutableLiveData<List<Movie>>()
@@ -19,7 +20,7 @@ class HomeViewModel(private val remoteDataSource: RemoteDataSource) : ViewModel(
     private fun getPopularMovie() {
         viewModelScope.launch {
             status.value = ApiStatus.LOADING
-            movies.value = remoteDataSource.getPopular()
+            movies.value = repository.getPopular()
             status.value = ApiStatus.DONE
         }
     }

@@ -1,6 +1,8 @@
 package com.example.homework17.domain
 
 
+import com.example.homework17.data.Repository
+import com.example.homework17.data.datasources.LocalDataSource
 import com.example.homework17.data.datasources.RemoteDataSource
 import com.example.homework17.network.ApiService
 import com.example.homework17.ui.detailfragment.DetailViewModel
@@ -39,6 +41,14 @@ val appModule = module {
     single {
         val remoteDataSource = RemoteDataSource(get())
         remoteDataSource
+    }
+    single {
+        val localDataSource = LocalDataSource()
+        localDataSource
+    }
+    single {
+        val repository = Repository(get(),get())
+        repository
     }
 
     viewModel { HomeViewModel(get()) }
