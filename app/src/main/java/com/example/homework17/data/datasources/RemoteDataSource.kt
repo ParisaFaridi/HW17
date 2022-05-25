@@ -19,4 +19,7 @@ class RemoteDataSource(private val apiService: ApiService) {
     suspend fun getTrailer(id:Int): Trailer{
         return apiService.getTrailer(id).results[0]
     }
+    suspend fun search(query:String): List<Movie>{
+        return apiService.search(query).results
+    }
 }

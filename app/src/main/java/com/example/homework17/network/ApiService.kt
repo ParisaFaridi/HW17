@@ -1,9 +1,6 @@
 package com.example.homework17.network
 
-import com.example.homework17.data.model.Detail
-import com.example.homework17.data.model.MovieList
-import com.example.homework17.data.model.UpComings
-import com.example.homework17.data.model.Videos
+import com.example.homework17.data.model.*
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -36,5 +33,11 @@ interface ApiService {
         @Path(value = "movie_id") movieId: Int,
         @Query("api_key")apiKey:String = API_KEY
     ):Videos
+
+    @GET("search/movie")
+    suspend fun search(
+        @Query("query")query:String,
+        @Query("api_key")apiKey:String = API_KEY
+    ):SearchResult
 
 }
