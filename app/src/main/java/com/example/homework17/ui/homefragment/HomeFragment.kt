@@ -39,7 +39,7 @@ class HomeFragment : Fragment() {
         activity?.title = "Movie App"
     }
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.upcoming_menu,menu)
+        inflater.inflate(R.menu.main_menu,menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -47,6 +47,10 @@ class HomeFragment : Fragment() {
         return when(item.itemId){
             R.id.upcoming_item -> {
                 findNavController().navigate(R.id.action_homeFragment_to_upcomingFragment)
+                return true
+            }
+            R.id.search ->{
+                findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
                 return true
             }
             else -> super.onOptionsItemSelected(item)

@@ -3,10 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/search"
+        android:icon="@drawable/ic_baseline_search_24"
+        app:showAsAction="always"
+        android:title="Search"/>
+
+    <item
         android:id="@+id/upcoming_item"
         android:icon="@drawable/ic_baseline_fiber_new_24"
         app:showAsAction="always"
         android:title="UpComings">
 
     </item>
+
 </menu>
