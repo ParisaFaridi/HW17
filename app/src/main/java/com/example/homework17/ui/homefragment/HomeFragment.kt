@@ -32,9 +32,28 @@ class HomeFragment : Fragment() {
             val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(it.id)
             findNavController().navigate(action)
         }
+        viewModelHome.status.observe(viewLifecycleOwner){
+            when(it){
+                ApiStatus.ERROR ->{
+                    binding.tvLoading.visibility = View.GONE
+                    binding.tvError.visibility = View.VISIBLE
+                }
+                ApiStatus.DONE ->{
+                    binding.tvLoading.visibility = View.GONE
+                    binding.tvError.visibility = View.GONE
+                    binding.recyclerView.visibility = View.VISIBLE
+                }
+            }
+        }
         viewModelHome.movies.observe(viewLifecycleOwner) {
+            if (it != null){
             binding.recyclerView.adapter = adapter
             adapter.submitList(it)
+            }
+            if (it == null){
+                binding.tvError.visibility = View.VISIBLE
+                binding.recyclerView.visibility = View.GONE
+            }
         }
         activity?.title = "Movie App"
     }

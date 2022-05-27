@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(private val repository: Repository) : ViewModel() {
 
-    private val status = MutableLiveData<ApiStatus>()
+    val status = MutableLiveData<ApiStatus>()
     val movies = MutableLiveData<List<Movie>>()
 
     init {
@@ -21,7 +21,10 @@ class HomeViewModel(private val repository: Repository) : ViewModel() {
         viewModelScope.launch {
             status.value = ApiStatus.LOADING
             movies.value = repository.getPopular()
-            status.value = ApiStatus.DONE
+            if (movies.value == null)
+                status.value = ApiStatus.ERROR
+            else
+                status.value = ApiStatus.DONE
         }
     }
 }
