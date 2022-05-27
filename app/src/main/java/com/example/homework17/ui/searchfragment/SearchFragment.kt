@@ -32,6 +32,7 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
+        activity?.title = "Search"
         val adapter = MovieAdapter {
             val action = SearchFragmentDirections.actionSearchFragmentToDetailFragment(it.id)
             findNavController().navigate(action)

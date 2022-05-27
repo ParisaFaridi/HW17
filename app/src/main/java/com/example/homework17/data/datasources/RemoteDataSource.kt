@@ -16,34 +16,18 @@ class RemoteDataSource(private val apiService: ApiService) {
     }
 
     suspend fun getMovieDetail(movieId: Int): Movie? {
-        return try {
-            apiService.getMovieDetail(movieId = movieId)
-        } catch (e: Exception) {
-            null
-        }
+        return apiService.getMovieDetail(movieId = movieId)
     }
 
-    suspend fun getUpComings(): List<Movie>? {
-        return try {
-            apiService.getUpComings().results
-        } catch (e: Exception) {
-            null
-        }
+    suspend fun getUpComings(): List<Movie> {
+        return apiService.getUpComings().results
     }
 
-    suspend fun getTrailer(id: Int): Trailer? {
-        return try {
-            apiService.getTrailer(id).results[0]
-        } catch (e: Exception) {
-            null
-        }
+    suspend fun getTrailer(id: Int): Trailer {
+        return apiService.getTrailer(id).results[0]
     }
 
-    suspend fun search(query: String): List<Movie>? {
-        return try {
-            apiService.search(query).results
-        } catch (e: Exception) {
-            null
-        }
+    suspend fun search(query: String): List<Movie> {
+        return apiService.search(query).results
     }
 }

@@ -24,21 +24,7 @@
         tools:listitem="@layout/movie_item" />
 
     <TextView
-        android:id="@+id/tv_error"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="No Connection!"
-        android:textSize="50sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_loading"
+        android:id="@+id/tv_message"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"

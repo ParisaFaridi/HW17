@@ -35,12 +35,10 @@ class HomeFragment : Fragment() {
         viewModelHome.status.observe(viewLifecycleOwner){
             when(it){
                 ApiStatus.ERROR ->{
-                    binding.tvLoading.visibility = View.GONE
-                    binding.tvError.visibility = View.VISIBLE
+                    binding.tvMessage.text = "No Connection!"
                 }
                 ApiStatus.DONE ->{
-                    binding.tvLoading.visibility = View.GONE
-                    binding.tvError.visibility = View.GONE
+                    binding.tvMessage.visibility = View.GONE
                     binding.recyclerView.visibility = View.VISIBLE
                 }
             }
@@ -49,10 +47,6 @@ class HomeFragment : Fragment() {
             if (it != null){
             binding.recyclerView.adapter = adapter
             adapter.submitList(it)
-            }
-            if (it == null){
-                binding.tvError.visibility = View.VISIBLE
-                binding.recyclerView.visibility = View.GONE
             }
         }
         activity?.title = "Movie App"

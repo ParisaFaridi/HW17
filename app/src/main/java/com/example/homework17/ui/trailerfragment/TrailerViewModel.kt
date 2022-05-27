@@ -13,7 +13,7 @@ class TrailerViewModel(private val repository: Repository): ViewModel() {
 
     fun getTrailer(id:Int){
         viewModelScope.launch {
-            trailer.value = "https://www.youtube.com/watch?v=" + repository.getTrailer(id).key
+           trailer.value = "https://www.youtube.com/watch?v=" + (repository.getTrailer(id)?.key)
         }
     }
 }
