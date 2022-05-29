@@ -1,10 +1,14 @@
 package com.example.homework17.domain
 
 
+import android.app.Application
+import androidx.room.Room
 import com.example.homework17.data.Repository
 import com.example.homework17.data.datasources.LocalDataSource
 import com.example.homework17.data.datasources.RemoteDataSource
 import com.example.homework17.network.ApiService
+import com.example.homework17.room.MovieDao
+import com.example.homework17.room.MovieDatabase
 import com.example.homework17.ui.detailfragment.DetailViewModel
 import com.example.homework17.ui.homefragment.HomeViewModel
 import com.example.homework17.ui.searchfragment.SearchViewModel
@@ -14,6 +18,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -51,9 +56,21 @@ val appModule = module {
         localDataSource
     }
     single {
-        val repository = Repository(get(),get())
+        val repository = Repository(get(), get())
         repository
     }
+
+    fun provideDataBase(application: Application): MovieDatabase {
+        return Room.databaseBuilder(application, MovieDatabase::class.java, "movie_db")
+            .fallbackToDestructiveMigration()
+            .build()
+    }
+    fun provideDao(dataBase: MovieDatabase): MovieDao {
+        return dataBase.movieDao
+    }
+    single { provideDataBase(androidApplication()) }
+    single { provideDao(get()) }
+
 
     viewModel { HomeViewModel(get()) }
     viewModel { DetailViewModel(get()) }
