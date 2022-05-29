@@ -36,7 +36,7 @@ class DetailFragment : Fragment() {
         detailViewModel.getMovie(args.movieId)
 
         detailViewModel.movie.observe(viewLifecycleOwner){
-            Glide.with(binding.imageView2).load(POSTER_PATH + it.poster_path)
+            Glide.with(binding.imageView2).load(POSTER_PATH + it.backdrop_path)
                 .into(binding.imageView2)
             activity?.title = it.title
         }
