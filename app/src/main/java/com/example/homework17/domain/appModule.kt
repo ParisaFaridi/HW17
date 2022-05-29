@@ -12,6 +12,8 @@ import com.example.homework17.ui.trailerfragment.TrailerViewModel
 import com.example.homework17.ui.upcomingfragment.UpComingViewModel
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -28,8 +30,10 @@ val appModule = module {
 
     single {
         val moshi = get() as Moshi
+        val logger = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BASIC }
+        val client = OkHttpClient.Builder().addInterceptor(logger).build()
         val retrofit = Retrofit.Builder().addConverterFactory(MoshiConverterFactory.create(moshi))
-            .baseUrl(BASE_URL).build()
+            .baseUrl(BASE_URL).client(client).build()
         retrofit
     }
 
