@@ -52,7 +52,7 @@ val appModule = module {
         remoteDataSource
     }
     single {
-        val localDataSource = LocalDataSource()
+        val localDataSource = LocalDataSource(get())
         localDataSource
     }
     single {
@@ -60,17 +60,16 @@ val appModule = module {
         repository
     }
 
-    fun provideDataBase(application: Application): MovieDatabase {
-        return Room.databaseBuilder(application, MovieDatabase::class.java, "movie_db")
-            .fallbackToDestructiveMigration()
-            .build()
+    single {
+        val db = Room.databaseBuilder(androidApplication(), MovieDatabase::class.java, "movie_db")
+            .fallbackToDestructiveMigration().build()
+        db
     }
-    fun provideDao(dataBase: MovieDatabase): MovieDao {
-        return dataBase.movieDao
-    }
-    single { provideDataBase(androidApplication()) }
-    single { provideDao(get()) }
 
+    single {
+        val db = get() as MovieDatabase
+        db.movieDao
+    }
 
     viewModel { HomeViewModel(get()) }
     viewModel { DetailViewModel(get()) }
