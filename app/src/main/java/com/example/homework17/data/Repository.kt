@@ -4,22 +4,39 @@ import com.example.homework17.data.datasources.LocalDataSource
 import com.example.homework17.data.datasources.RemoteDataSource
 import com.example.homework17.data.model.Movie
 import com.example.homework17.data.model.Trailer
+import java.lang.Exception
 
-class Repository(val remoteDataSource: RemoteDataSource,localDataSource: LocalDataSource){
+class Repository(private val remoteDataSource: RemoteDataSource,private val localDataSource: LocalDataSource){
 
-    suspend fun getPopular(): List<Movie>? {
-        return remoteDataSource.getPopular()
+    suspend fun getPopular(): List<Movie> {
+        return try {
+            val movies = remoteDataSource.getPopular()
+            localDataSource.insertPopular(movies)
+            movies
+        }catch (e:Exception){
+            localDataSource.getPopular()
+        }
     }
-    suspend fun getMovieDetail(movieId:Int): Movie? {
-        return remoteDataSource.getMovieDetail(movieId)
+    suspend fun getMovieDetail(movieId:Int): Movie {
+        return try {
+            remoteDataSource.getMovieDetail(movieId)
+        }catch (e :Exception){
+            localDataSource.getDetail(movieId)
+        }
     }
-    suspend fun getUpComings():List<Movie>?{
-        return remoteDataSource.getUpComings()
+    suspend fun getUpComings():List<Movie>{
+        return try{
+            val movies =remoteDataSource.getUpComings()
+            localDataSource.insertUpcoming(movies)
+            movies
+        }catch (e:Exception){
+            localDataSource.getUpcoming()
+        }
     }
-    suspend fun getTrailer(id:Int): Trailer? {
+    suspend fun getTrailer(id:Int): Trailer {
         return remoteDataSource.getTrailer(id)
     }
-    suspend fun search(query:String): List<Movie>?{
+    suspend fun search(query:String): List<Movie>{
         return remoteDataSource.search(query)
     }
 }

@@ -3,19 +3,14 @@ package com.example.homework17.data.datasources
 import com.example.homework17.data.model.Movie
 import com.example.homework17.data.model.Trailer
 import com.example.homework17.network.ApiService
-import java.lang.Exception
 
 class RemoteDataSource(private val apiService: ApiService) {
 
-    suspend fun getPopular(): List<Movie>? {
-        return try {
-            apiService.getPopular().results
-        } catch (e: Exception) {
-            null
-        }
+    suspend fun getPopular(): List<Movie> {
+        return apiService.getPopular().results
     }
 
-    suspend fun getMovieDetail(movieId: Int): Movie? {
+    suspend fun getMovieDetail(movieId: Int): Movie {
         return apiService.getMovieDetail(movieId = movieId)
     }
 
