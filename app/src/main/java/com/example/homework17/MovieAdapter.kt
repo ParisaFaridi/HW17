@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.homework17.data.model.Movie
 import com.example.homework17.databinding.MovieItemBinding
 import com.example.homework17.network.POSTER_PATH
@@ -40,6 +41,7 @@ class MovieAdapter(private val clickHandler: ClickHandler):
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         holder.binding.movie = getItem(position)
         Glide.with(holder.binding.imageView.context).load(POSTER_PATH + getItem(position).poster_path)
+            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .into(holder.binding.imageView)
         holder.binding.imageView.setOnClickListener {
             clickHandler.invoke(getItem(position))
