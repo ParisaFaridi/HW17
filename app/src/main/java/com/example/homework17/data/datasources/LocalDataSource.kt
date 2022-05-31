@@ -6,9 +6,15 @@ import com.example.homework17.room.MovieDatabase
 
 class LocalDataSource(private val movieDb: MovieDatabase) {
 
-    suspend fun insert(movies: List<Movie>){
+    suspend fun insertPopular(movies: List<Movie>){
         for (i in movies)
             movieDb.movieDao.insert(i)
+    }
+    suspend fun insertUpcoming(movies: List<Movie>){
+        for (i in movies){
+            movieDb.movieDao.insert(Movie(i.id,i.original_title,i.overview,i.poster_path,i.title
+            ,i.vote_average,i.backdrop_path,true))
+        }
     }
     suspend fun getPopular():List<Movie> {
         return movieDb.movieDao.getPopular()
