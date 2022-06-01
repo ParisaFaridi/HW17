@@ -2,7 +2,6 @@ package com.example.homework17.ui.homefragment
 
 import android.os.Bundle
 import android.view.*
-import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -11,11 +10,11 @@ import com.example.homework17.R
 import com.example.homework17.databinding.FragmentHomeBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 class HomeFragment : Fragment() {
 
     private val viewModelHome : HomeViewModel by viewModel()
     private lateinit var binding :FragmentHomeBinding
+    private lateinit var adapter : MovieAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,29 +26,45 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
-        val adapter = MovieAdapter {
-            val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(it.id)
-            findNavController().navigate(action)
-        }
+
+        activity?.title = "Movie App"
+        showProgressBar()
+        setRecyclerView()
+
         viewModelHome.status.observe(viewLifecycleOwner){
             when(it){
                 ApiStatus.ERROR ->{
-                    binding.tvMessage.text = "No Connection!"
+                    hideProgressBar()
+                    binding.tvMessage.visibility = View.VISIBLE
                 }
                 ApiStatus.DONE ->{
-                    binding.tvMessage.visibility = View.GONE
+                    hideProgressBar()
                     binding.recyclerView.visibility = View.VISIBLE
+                }
+                else -> {
+                    showProgressBar()
                 }
             }
         }
         viewModelHome.movies.observe(viewLifecycleOwner) {
             if (it != null){
-            binding.recyclerView.adapter = adapter
-            adapter.submitList(it)
+                binding.recyclerView.adapter = adapter
+                adapter.submitList(it)
             }
         }
-        activity?.title = "Movie App"
+    }
+    private fun setRecyclerView() {
+        binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
+        adapter = MovieAdapter {
+            val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(it.id)
+            findNavController().navigate(action)
+        }
+    }
+    private fun showProgressBar(){
+        binding.progressBar.visibility = View.VISIBLE
+    }
+    private fun hideProgressBar(){
+        binding.progressBar.visibility = View.GONE
     }
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_menu,menu)
