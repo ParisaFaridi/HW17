@@ -3,19 +3,15 @@ package com.example.homework17.data
 import com.example.homework17.data.datasources.LocalDataSource
 import com.example.homework17.data.datasources.RemoteDataSource
 import com.example.homework17.data.model.Movie
+import com.example.homework17.data.model.MovieList
 import com.example.homework17.data.model.Trailer
+import retrofit2.Response
 import java.lang.Exception
 
 class Repository(private val remoteDataSource: RemoteDataSource,private val localDataSource: LocalDataSource){
 
-    suspend fun getPopular(): List<Movie> {
-        return try {
-            val movies = remoteDataSource.getPopular()
-            localDataSource.insertPopular(movies)
-            movies
-        }catch (e:Exception){
-            localDataSource.getPopular()
-        }
+    suspend fun getPopular(): Response<MovieList> {
+        return remoteDataSource.getPopular()
     }
     suspend fun getMovieDetail(movieId:Int): Movie {
         return try {
