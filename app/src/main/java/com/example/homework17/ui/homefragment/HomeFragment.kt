@@ -43,7 +43,7 @@ class HomeFragment : Fragment() {
                     hideProgressBar()
                     binding.tvMessage.visibility = View.VISIBLE
                     binding.recyclerView.visibility = View.GONE
-                    Log.e("Popular Movies","Error: ${response.message}")
+                    binding.tvMessage.text = response.message
                 }
                 is Resource.Loading ->{
                     showProgressBar()

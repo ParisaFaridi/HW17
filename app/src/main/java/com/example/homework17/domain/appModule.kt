@@ -1,13 +1,12 @@
 package com.example.homework17.domain
 
 
-import android.app.Application
+
 import androidx.room.Room
 import com.example.homework17.data.Repository
 import com.example.homework17.data.datasources.LocalDataSource
 import com.example.homework17.data.datasources.RemoteDataSource
 import com.example.homework17.network.ApiService
-import com.example.homework17.room.MovieDao
 import com.example.homework17.room.MovieDatabase
 import com.example.homework17.ui.detailfragment.DetailViewModel
 import com.example.homework17.ui.homefragment.HomeViewModel
@@ -71,7 +70,7 @@ val appModule = module {
         db.movieDao
     }
 
-    viewModel { HomeViewModel(get()) }
+    viewModel { HomeViewModel(get(),androidApplication()) }
     viewModel { DetailViewModel(get()) }
     viewModel { UpComingViewModel(get()) }
     viewModel { TrailerViewModel(get()) }
