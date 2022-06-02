@@ -18,6 +18,14 @@ class Repository(private val remoteDataSource: RemoteDataSource,private val loca
     suspend fun getPopularFromDb():List<Movie>{
         return localDataSource.getPopular()
     }
+    suspend fun getUpComings(): Response<MovieList> {
+        val movies =remoteDataSource.getUpComings()
+        movies.body()?.let { localDataSource.insertUpcoming(it.results) }
+        return movies
+    }
+    suspend fun getUpcomingFromDb():List<Movie>{
+        return localDataSource.getUpcoming()
+    }
     suspend fun getMovieDetail(movieId:Int): Movie {
         return try {
             remoteDataSource.getMovieDetail(movieId)
@@ -25,17 +33,12 @@ class Repository(private val remoteDataSource: RemoteDataSource,private val loca
             localDataSource.getDetail(movieId)
         }
     }
-    suspend fun getUpComings():List<Movie>{
-        return try{
-            val movies =remoteDataSource.getUpComings().results
-            localDataSource.insertUpcoming(movies)
-            movies
+    suspend fun getTrailer(id:Int): Trailer? {
+        return try {
+            remoteDataSource.getTrailer(id)
         }catch (e:Exception){
-            localDataSource.getUpcoming()
+            null
         }
-    }
-    suspend fun getTrailer(id:Int): Trailer {
-        return remoteDataSource.getTrailer(id)
     }
     suspend fun search(query:String): List<Movie>{
         return remoteDataSource.search(query).results

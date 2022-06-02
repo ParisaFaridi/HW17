@@ -28,7 +28,7 @@ interface ApiService {
     suspend fun getUpComings(
         @Query("page")page :Int = 2,
         @Query("api_key")apiKey:String = API_KEY
-    ): MovieList
+    ): Response<MovieList>
 
     @GET("movie/{movie_id}/videos")
     suspend fun getTrailer(
