@@ -11,7 +11,12 @@ import java.lang.Exception
 class Repository(private val remoteDataSource: RemoteDataSource,private val localDataSource: LocalDataSource){
 
     suspend fun getPopular(): Response<MovieList> {
-        return remoteDataSource.getPopular()
+        val movies = remoteDataSource.getPopular()
+        movies.body()?.let { localDataSource.insertPopular(it.results) }
+        return movies
+    }
+    suspend fun getPopularFromDb():List<Movie>{
+        return localDataSource.getPopular()
     }
     suspend fun getMovieDetail(movieId:Int): Movie {
         return try {

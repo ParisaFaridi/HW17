@@ -36,7 +36,7 @@ class HomeFragment : Fragment() {
                 is Resource.Success ->{
                     hideProgressBar()
                     response.data?.let { data ->
-                        movieAdapter.submitList(data.results)
+                        movieAdapter.submitList(data)
                     }
                 }
                 is Resource.Error ->{
