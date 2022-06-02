@@ -1,20 +1,21 @@
 package com.example.homework17.ui.homefragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.homework17.MovieAdapter
 import com.example.homework17.R
 import com.example.homework17.Resource
 import com.example.homework17.databinding.FragmentHomeBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    private val viewModelHome : HomeViewModel by viewModel()
+    private val viewModelHome : HomeViewModel by viewModels()
     private lateinit var binding :FragmentHomeBinding
     private lateinit var movieAdapter : MovieAdapter
 

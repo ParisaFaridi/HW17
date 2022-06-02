@@ -5,15 +5,17 @@ import android.view.*
 import android.webkit.WebSettings
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.homework17.databinding.FragmentTrailerBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TrailerFragment : Fragment() {
 
     private lateinit var binding: FragmentTrailerBinding
     private val args: TrailerFragmentArgs by navArgs()
-    private val trailerViewModel: TrailerViewModel by viewModel()
+    private val trailerViewModel: TrailerViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

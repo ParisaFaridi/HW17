@@ -1,22 +1,22 @@
 package com.example.homework17.ui.upcomingfragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.homework17.MovieAdapter
 import com.example.homework17.databinding.FragmentUpcomingBinding
-import com.example.homework17.ui.homefragment.HomeFragmentDirections
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class UpcomingFragment : Fragment() {
 
     lateinit var binding:FragmentUpcomingBinding
-    private val upComingViewModel : UpComingViewModel by viewModel()
+    private val upComingViewModel : UpComingViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

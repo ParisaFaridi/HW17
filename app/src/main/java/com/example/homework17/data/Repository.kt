@@ -7,8 +7,9 @@ import com.example.homework17.data.model.MovieList
 import com.example.homework17.data.model.Trailer
 import retrofit2.Response
 import java.lang.Exception
+import javax.inject.Inject
 
-class Repository(private val remoteDataSource: RemoteDataSource,private val localDataSource: LocalDataSource){
+class Repository @Inject constructor(private val remoteDataSource: RemoteDataSource,private val localDataSource: LocalDataSource){
 
     suspend fun getPopular(): Response<MovieList> {
         val movies = remoteDataSource.getPopular()

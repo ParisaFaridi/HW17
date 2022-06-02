@@ -14,11 +14,13 @@ import com.example.homework17.Resource
 import com.example.homework17.data.Repository
 import com.example.homework17.data.model.Movie
 import com.example.homework17.data.model.MovieList
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response
-import java.lang.Exception
+import javax.inject.Inject
 
-class HomeViewModel(private val repository: Repository,app: Application) : AndroidViewModel(app) {
+@HiltViewModel
+class HomeViewModel @Inject constructor(private val repository: Repository, app: Application) : AndroidViewModel(app) {
 
     val movies :MutableLiveData<Resource<List<Movie>>> = MutableLiveData()
 

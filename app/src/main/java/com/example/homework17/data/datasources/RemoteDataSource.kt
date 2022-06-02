@@ -3,11 +3,11 @@ package com.example.homework17.data.datasources
 import com.example.homework17.data.model.Movie
 import com.example.homework17.data.model.MovieList
 import com.example.homework17.data.model.Trailer
-import com.example.homework17.data.model.Videos
 import com.example.homework17.network.ApiService
 import retrofit2.Response
+import javax.inject.Inject
 
-class RemoteDataSource(private val apiService: ApiService) {
+class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
 
     suspend fun getPopular(): Response<MovieList> {
         return apiService.getPopular()

@@ -1,10 +1,10 @@
 package com.example.homework17.data.datasources
 
-import androidx.lifecycle.LiveData
 import com.example.homework17.data.model.Movie
 import com.example.homework17.room.MovieDatabase
+import javax.inject.Inject
 
-class LocalDataSource(private val movieDb: MovieDatabase) {
+class LocalDataSource @Inject constructor(private val movieDb: MovieDatabase) {
 
     suspend fun insertPopular(movies: List<Movie>){
         for (i in movies)

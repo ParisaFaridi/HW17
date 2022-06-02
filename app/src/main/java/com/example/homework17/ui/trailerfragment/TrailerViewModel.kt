@@ -4,10 +4,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.homework17.data.Repository
-import com.example.homework17.data.datasources.RemoteDataSource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class TrailerViewModel(private val repository: Repository): ViewModel() {
+@HiltViewModel
+class TrailerViewModel @Inject constructor(private val repository: Repository): ViewModel() {
 
         val trailer = MutableLiveData<String>()
 
