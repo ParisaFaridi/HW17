@@ -4,19 +4,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.homework17.data.Repository
-import com.example.homework17.data.datasources.RemoteDataSource
 import kotlinx.coroutines.launch
 
 class TrailerViewModel(private val repository: Repository): ViewModel() {
 
-        val trailer = MutableLiveData<String?>()
+    val trailer = MutableLiveData<String?>()
 
-    fun getTrailer(id:Int){
-        viewModelScope.launch {
-            if(repository.getTrailer(id) == null){
-                trailer.value = null
-            }
-           trailer.value = "https://www.youtube.com/watch?v=" + (repository.getTrailer(id)?.key)
+    fun getTrailer(id:Int) = viewModelScope.launch {
+        try {
+            trailer.value = "https://www.youtube.com/watch?v=" + (repository.getTrailer(id).key)
+        }catch (e:Exception){
+            trailer.value = null
         }
     }
 }

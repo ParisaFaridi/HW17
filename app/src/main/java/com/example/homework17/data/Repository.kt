@@ -33,12 +33,8 @@ class Repository(private val remoteDataSource: RemoteDataSource,private val loca
             localDataSource.getDetail(movieId)
         }
     }
-    suspend fun getTrailer(id:Int): Trailer? {
-        return try {
-            remoteDataSource.getTrailer(id)
-        }catch (e:Exception){
-            null
-        }
+    suspend fun getTrailer(id:Int): Trailer {
+        return remoteDataSource.getTrailer(id)
     }
     suspend fun search(query:String): List<Movie>{
         return remoteDataSource.search(query).results

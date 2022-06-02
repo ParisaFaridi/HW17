@@ -1,5 +1,9 @@
 package com.example.homework17.ui.trailerfragment
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.webkit.WebSettings
@@ -25,17 +29,17 @@ class TrailerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        if (!hasInternetConnection()) {
+            binding.tvMessage.visibility = View.VISIBLE
+            binding.webView.visibility = View.GONE
+        }
         trailerViewModel.getTrailer(args.id)
         trailerViewModel.trailer.observe(viewLifecycleOwner) {
-            if (it != null){
-            binding.webView.apply {
-                webViewClient = WebViewClient()
-                loadUrl(it)
-            }
-            }else{
-                binding.tvMessage.visibility = View.VISIBLE
-                binding.webView.visibility = View.GONE
+            if (it != null) {
+                binding.webView.apply {
+                    webViewClient = WebViewClient()
+                    loadUrl(it)
+                }
             }
         }
         val webSettings: WebSettings = binding.webView.settings
@@ -49,5 +53,32 @@ class TrailerFragment : Fragment() {
             }
             false
         })
+    }
+
+    private fun hasInternetConnection(): Boolean {
+        val connectivityManager = context?.getSystemService(
+            Context.CONNECTIVITY_SERVICE
+        ) as ConnectivityManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val activeNetwork = connectivityManager.activeNetwork ?: return false
+            val capabilities =
+                connectivityManager.getNetworkCapabilities(activeNetwork) ?: return false
+            return when {
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+                else -> false
+            }
+        } else {
+            connectivityManager.activeNetworkInfo?.run {
+                return when (type) {
+                    ConnectivityManager.TYPE_WIFI -> true
+                    ConnectivityManager.TYPE_MOBILE -> true
+                    ConnectivityManager.TYPE_ETHERNET -> true
+                    else -> false
+                }
+            }
+        }
+        return false
     }
 }
