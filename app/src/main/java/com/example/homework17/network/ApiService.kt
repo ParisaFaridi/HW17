@@ -22,7 +22,7 @@ interface ApiService {
         @Path(value = "movie_id") movieId: Int,
         @Query("api_key") apiKey :String = API_KEY
 
-    ):Movie
+    ):Response<Movie>
 
     @GET("movie/upcoming")
     suspend fun getUpComings(

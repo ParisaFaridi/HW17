@@ -6,7 +6,6 @@ import com.example.homework17.data.model.Movie
 import com.example.homework17.data.model.MovieList
 import com.example.homework17.data.model.Trailer
 import retrofit2.Response
-import java.lang.Exception
 
 class Repository(private val remoteDataSource: RemoteDataSource,private val localDataSource: LocalDataSource){
 
@@ -26,12 +25,11 @@ class Repository(private val remoteDataSource: RemoteDataSource,private val loca
     suspend fun getUpcomingFromDb():List<Movie>{
         return localDataSource.getUpcoming()
     }
-    suspend fun getMovieDetail(movieId:Int): Movie {
-        return try {
-            remoteDataSource.getMovieDetail(movieId)
-        }catch (e :Exception){
-            localDataSource.getDetail(movieId)
-        }
+    suspend fun getMovieDetail(movieId:Int): Response<Movie> {
+        return remoteDataSource.getMovieDetail(movieId)
+    }
+    suspend fun getMovieDetailFromDb(movieId: Int):Movie{
+        return localDataSource.getDetail(movieId)
     }
     suspend fun getTrailer(id:Int): Trailer {
         return remoteDataSource.getTrailer(id)

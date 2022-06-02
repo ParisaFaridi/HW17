@@ -71,7 +71,7 @@ val appModule = module {
     }
 
     viewModel { HomeViewModel(get(),androidApplication()) }
-    viewModel { DetailViewModel(get()) }
+    viewModel { DetailViewModel(get(),androidApplication()) }
     viewModel { UpComingViewModel(get(),androidApplication()) }
     viewModel { TrailerViewModel(get()) }
     viewModel { SearchViewModel(get()) }
