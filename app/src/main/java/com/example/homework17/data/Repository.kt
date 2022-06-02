@@ -27,7 +27,7 @@ class Repository(private val remoteDataSource: RemoteDataSource,private val loca
     }
     suspend fun getUpComings():List<Movie>{
         return try{
-            val movies =remoteDataSource.getUpComings()
+            val movies =remoteDataSource.getUpComings().results
             localDataSource.insertUpcoming(movies)
             movies
         }catch (e:Exception){
@@ -38,6 +38,6 @@ class Repository(private val remoteDataSource: RemoteDataSource,private val loca
         return remoteDataSource.getTrailer(id)
     }
     suspend fun search(query:String): List<Movie>{
-        return remoteDataSource.search(query)
+        return remoteDataSource.search(query).results
     }
 }
