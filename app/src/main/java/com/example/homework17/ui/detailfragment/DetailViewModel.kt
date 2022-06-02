@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.homework17.data.Repository
 import com.example.homework17.data.model.Movie
-import com.example.homework17.ui.homefragment.ApiStatus
 import kotlinx.coroutines.launch
 
 class DetailViewModel(private val repository: Repository):ViewModel() {
@@ -21,3 +20,4 @@ class DetailViewModel(private val repository: Repository):ViewModel() {
         }
     }
 }
+enum class ApiStatus{LOADING,DONE}

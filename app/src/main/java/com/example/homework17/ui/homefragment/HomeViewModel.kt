@@ -16,7 +16,6 @@ import com.example.homework17.data.model.Movie
 import com.example.homework17.data.model.MovieList
 import kotlinx.coroutines.launch
 import retrofit2.Response
-import java.lang.Exception
 
 class HomeViewModel(private val repository: Repository,app: Application) : AndroidViewModel(app) {
 
@@ -73,5 +72,3 @@ class HomeViewModel(private val repository: Repository,app: Application) : Andro
         return false
     }
 }
-
-enum class ApiStatus { LOADING, ERROR, DONE }
