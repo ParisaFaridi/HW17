@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 
 class TrailerViewModel(private val repository: Repository): ViewModel() {
 
-        val trailer = MutableLiveData<String>()
+        val trailer = MutableLiveData<String?>()
 
     fun getTrailer(id:Int){
         viewModelScope.launch {
