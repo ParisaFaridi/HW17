@@ -28,9 +28,14 @@ class TrailerFragment : Fragment() {
 
         trailerViewModel.getTrailer(args.id)
         trailerViewModel.trailer.observe(viewLifecycleOwner) {
+            if (it != null){
             binding.webView.apply {
                 webViewClient = WebViewClient()
                 loadUrl(it)
+            }
+            }else{
+                binding.tvMessage.visibility = View.VISIBLE
+                binding.webView.visibility = View.GONE
             }
         }
         val webSettings: WebSettings = binding.webView.settings

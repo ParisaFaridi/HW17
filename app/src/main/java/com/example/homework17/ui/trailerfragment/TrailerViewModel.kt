@@ -13,6 +13,9 @@ class TrailerViewModel(private val repository: Repository): ViewModel() {
 
     fun getTrailer(id:Int){
         viewModelScope.launch {
+            if(repository.getTrailer(id) == null){
+                trailer.value = null
+            }
            trailer.value = "https://www.youtube.com/watch?v=" + (repository.getTrailer(id)?.key)
         }
     }
