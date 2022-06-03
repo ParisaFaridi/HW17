@@ -25,4 +25,7 @@ class LocalDataSource(private val movieDb: MovieDatabase) {
     suspend fun getDetail(id:Int):Movie{
         return movieDb.movieDao.getDetail(id)
     }
+    suspend fun search(searchQuery:String): List<Movie> {
+        return movieDb.movieDao.search(searchQuery)
+    }
 }

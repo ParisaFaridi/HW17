@@ -39,7 +39,10 @@ class Repository(
         return remoteDataSource.getTrailer(id)
     }
 
-    suspend fun search(query: String): List<Movie> {
-        return remoteDataSource.search(query).results
+    suspend fun search(query: String,hasInternet: Boolean): List<Movie> {
+        return if (hasInternet)
+            remoteDataSource.search(query).results
+        else
+            localDataSource.search(query)
     }
 }
