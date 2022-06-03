@@ -19,7 +19,7 @@ class Repository(
         } else
             Response.success(MovieList(1, localDataSource.getPopular()))
     }
-    suspend fun getUpcomings(hasInternet: Boolean): Response<MovieList> {
+    suspend fun getUpcoming(hasInternet: Boolean): Response<MovieList> {
         return if (hasInternet) {
             val movies = remoteDataSource.getUpComings()
             movies.body()?.let { localDataSource.insertUpcoming(it.results) }
