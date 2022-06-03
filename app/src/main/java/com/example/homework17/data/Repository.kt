@@ -7,34 +7,39 @@ import com.example.homework17.data.model.MovieList
 import com.example.homework17.data.model.Trailer
 import retrofit2.Response
 
-class Repository(private val remoteDataSource: RemoteDataSource,private val localDataSource: LocalDataSource){
+class Repository(
+    private val remoteDataSource: RemoteDataSource,
+    private val localDataSource: LocalDataSource) {
 
-    suspend fun getPopular(): Response<MovieList> {
-        val movies = remoteDataSource.getPopular()
-        movies.body()?.let { localDataSource.insertPopular(it.results) }
-        return movies
+    suspend fun getPopular(hasInternet: Boolean): Response<MovieList> {
+        return if (hasInternet) {
+            val movies = remoteDataSource.getPopular()
+            movies.body()?.let { localDataSource.insertPopular(it.results) }
+            movies
+        } else
+            Response.success(MovieList(1, localDataSource.getPopular()))
     }
-    suspend fun getPopularFromDb():List<Movie>{
-        return localDataSource.getPopular()
+    suspend fun getUpcomings(hasInternet: Boolean): Response<MovieList> {
+        return if (hasInternet) {
+            val movies = remoteDataSource.getUpComings()
+            movies.body()?.let { localDataSource.insertUpcoming(it.results) }
+            movies
+        } else
+            Response.success(MovieList(1, localDataSource.getUpcoming()))
     }
-    suspend fun getUpComings(): Response<MovieList> {
-        val movies =remoteDataSource.getUpComings()
-        movies.body()?.let { localDataSource.insertUpcoming(it.results) }
-        return movies
-    }
-    suspend fun getUpcomingFromDb():List<Movie>{
-        return localDataSource.getUpcoming()
-    }
-    suspend fun getMovieDetail(movieId:Int): Response<Movie> {
+    suspend fun getMovieDetail(movieId: Int): Response<Movie> {
         return remoteDataSource.getMovieDetail(movieId)
     }
-    suspend fun getMovieDetailFromDb(movieId: Int):Movie{
+
+    suspend fun getMovieDetailFromDb(movieId: Int): Movie {
         return localDataSource.getDetail(movieId)
     }
-    suspend fun getTrailer(id:Int): Trailer {
+
+    suspend fun getTrailer(id: Int): Trailer {
         return remoteDataSource.getTrailer(id)
     }
-    suspend fun search(query:String): List<Movie>{
+
+    suspend fun search(query: String): List<Movie> {
         return remoteDataSource.search(query).results
     }
 }

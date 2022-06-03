@@ -19,16 +19,11 @@ class HomeViewModel(private val repository: Repository,app: Application) : Andro
     init {
         getPopularMovie()
     }
-
     private fun getPopularMovie() = viewModelScope.launch {
         movies.postValue(Resource.Loading())
         try {
-            if (hasInternetConnection()){
-                val response  = repository.getPopular()
-                movies.postValue(handlePopularMovies(response))
-            }else{
-                movies.postValue(Resource.Success(repository.getPopularFromDb()))
-            }
+            val response  = repository.getPopular(hasInternetConnection())
+            movies.postValue(handlePopularMovies(response))
         }catch (t :Throwable){
             movies.postValue(Resource.Error("Unknown Error!"))
         }

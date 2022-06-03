@@ -23,17 +23,12 @@ class UpComingViewModel (private val repository: Repository,app: Application) : 
     private fun getUpComings() = viewModelScope.launch {
         upComingMovies.postValue(Resource.Loading())
         try {
-            if (hasInternetConnection()) {
-                val response = repository.getUpComings()
-                upComingMovies.postValue(handleUpcomingMovies(response))
-            } else {
-                upComingMovies.postValue(Resource.Success(repository.getUpcomingFromDb()))
-            }
-        } catch (t: Throwable) {
+            val response = repository.getUpcomings(hasInternetConnection())
+            upComingMovies.postValue(handleUpcomingMovies(response))
+            }catch (t: Throwable) {
             upComingMovies.postValue(Resource.Error("Unknown Error!"))
         }
     }
-
     private fun handleUpcomingMovies(response: Response<MovieList>): Resource<List<Movie>>{
             if (response.isSuccessful){
                 response.body()?.let{
